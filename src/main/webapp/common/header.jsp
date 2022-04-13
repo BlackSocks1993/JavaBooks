@@ -8,7 +8,7 @@
 <header>
     <h1>
         <a href="#">
-            <img src="./img/logo.jpg" alt="Logo">
+            <img src="../img/logo.jpg" alt="Logo">
         </a>
     </h1>
     <div class="header_bnt">
