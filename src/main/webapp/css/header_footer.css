@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+* {
+    /* 전체 요소에 적용 */
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 10px;
+}
+
+a {
+    /* anchor Tag 밑줄 제거, 색상 블랙 */
+    text-decoration: none;
+    color: inherit;
+}
+
+li {
+    list-style: none;
+}
+
+
+
+/* Page header start */
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+header h1 a img {
+    width: 400px;
+    height: 40px;
+}
+
+header .header_bnt {
+    display: flex;
+    margin-right: 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+header .header_bnt div {
+    margin-left: 3rem;
+}
+
+header .header_bnt div:first-child {
+    margin-left: 0rem;
+}
+
+
+
+/* Footer start */
+
+footer {
+    padding: 20px 0;
+    background-color: #ccc;
+}
+
+footer div {
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px 0;
+    font-size: 1.5rem;
+}
+
+footer div:first-child {
+    border-bottom: 1px solid gray;
+}

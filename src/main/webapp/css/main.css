@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+/* 구현부 */
+
+section {
+    display: flex;
+    flex-direction: row;
+    margin: 5rem 10rem;
+}
+
+.category_wrapper {
+    flex-grow: 2;
+    margin-right: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.category_wrapper .title {
+    margin-top: 13px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid grey;
+}
+
+.category_wrapper .title p {
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+.category_wrapper ul li {
+    margin-left: 10px;
+    margin-bottom: 1rem;
+}
+
+.bestSeller_wrapper {
+    flex-grow: 2;
+    margin-right: 5rem;
+    text-align: center;
+}
+
+.bestSeller_wrapper .mainTitle {
+    padding-bottom: 5px;
+    border-bottom: 2px solid gray;
+    font-size: 2.5rem;
+    font-weight: 600;
+    
+}
+
+.bestSeller_wrapper .fiction_wrapper,
+.bestSeller_wrapper .essay_wrapper {
+    margin-top: 10px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.bestSeller_wrapper .fiction_wrapper p,
+.bestSeller_wrapper .essay_wrapper p {
+    margin-bottom: 10px;
+}
+
+.bestSeller_wrapper .bestSeller_items a img {
+    width: 120px;
+    height: 200px;
+}
+
+.searchAndAd {
+    flex-grow: 1;
+}
+
+.searchAndAd form {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.searchAndAd form input[type="text"] {
+    width: 20rem;
+    height: 3rem;
+}
+
+.searchAndAd form input[type="button"] {
+    width: 10rem;
+    height: 3rem;
+}
+
+.searchAndAd form {
+    text-align: center;
+}
+
+.searchAndAd .ad {
+    text-align: center;
+}
+
+.searchAndAd .ad a img {
+    width: 30rem;
+}
