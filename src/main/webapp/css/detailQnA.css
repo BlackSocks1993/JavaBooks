@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+/* Content Number start */
+
+.content_container {
+    width: 60%;
+    min-width: 980px;
+    margin: 5rem auto;
+}
+
+.content_container .contentNum {
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.content_container .contentNum .cValue {
+    margin-left: 5px;
+}
+
+
+
+/* Content User Info start */
+
+.content_wrapper .userInfo_wrapper {
+    margin-bottom: 20px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 2rem 5rem;
+}
+
+.content_wrapper .userInfo_wrapper .qType{
+    margin: 0 50px 20px;
+    color: orangered;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.content_wrapper .userInfo_wrapper .qType .qValue {
+    margin-left: 30px;
+    font-weight: normal;
+}
+
+.content_wrapper .userInfo_wrapper .userInfo {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.content_wrapper .userInfo_wrapper .userInfo > div {
+    display: flex;
+    font-size: 2rem;
+}
+
+.content_wrapper .userInfo_wrapper .userInfo > div .itemName {
+    margin-right: 30px;
+    padding-right: 15px;
+    border-right: 1px solid black;
+    font-weight: 600;
+} 
+
+.content_wrapper .userInfo_wrapper .userInfo .userNameTel>div p:first-child {
+    margin-bottom: 10px;
+}
+
+
+
+/* Content Main Text start */
+
+.article_wrapper {
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 3rem 5rem;
+    font-size: 2rem;
+}
+
+.detail_title {
+    font-size: 3rem;
+    font-weight: 700;
+    outline: none;
+    padding-bottom: 0.5rem;
+    border: none;
+    margin-bottom: 2rem;
+    width: 100%;
+    height: 4rem;
+    border-bottom: 2px solid #dcdcdc;
+}
+
+.article_content {
+    font-size: 1.7rem;
+    word-break: break-all;
+    line-height: 1.7;
+    letter-spacing: -.004em;
+}

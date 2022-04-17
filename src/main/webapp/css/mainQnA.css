@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+/* Articles Header start */
+
+.articles_container {
+    width: 60%;
+    min-width: 980px;
+    margin: 5rem auto;
+}
+
+.articlesHeader_wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+
+
+/* Articles List start */
+
+.articles_wrapper {
+    margin: 2rem 0;
+}
+
+.articles_wrapper .articlesList_wrapper > div:first-child {
+    display: flex;
+}
+
+.articles_wrapper .articlesList_wrapper > div > a {
+    display: flex;
+    flex-direction: row;
+}
+
+.articles_wrapper .articlesList_wrapper > div.top {
+    border-top: 2px solid black;
+}
+
+.articles_wrapper .articlesList_wrapper > div {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+}
+
+.articles_wrapper .articlesList_wrapper > div:last-child {
+    border-bottom: 1px solid #999;
+}
+
+.articles_wrapper .articlesList_wrapper > div.top div {
+    font-weight: 900;
+}
+
+.articles_wrapper .articlesList_wrapper > div .num,
+.articles_wrapper .articlesList_wrapper > div a .num { flex-grow: 1; text-align: center;}
+
+.articles_wrapper .articlesList_wrapper > div .type,
+.articles_wrapper .articlesList_wrapper > div a .type { flex-grow: 1; text-align: center;}
+
+.articles_wrapper .articlesList_wrapper > div .title,
+.articles_wrapper .articlesList_wrapper > div a .title { flex-grow: 3; text-align: center;}
+
+.articles_wrapper .articlesList_wrapper > div a .title { text-align: left; }
+
+.articles_wrapper .articlesList_wrapper > div .author,
+.articles_wrapper .articlesList_wrapper > div a .author { flex-grow: 1; }
+
+.articles_wrapper .articlesList_wrapper > div .date,
+.articles_wrapper .articlesList_wrapper > div a .date { flex-grow: 1; }
+
+
+
+/* Page Buttons start */
+
+.page {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.page a {
+    box-sizing: border-box;
+    width: 32px;
+    height: 32px;
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    font: 1.2rem;
+    line-height: 32px;
+}
+
+.page a:first-child { border-left: 1px solid #ddd; }
+
+.page a.num { font-size: 1.4rem; }

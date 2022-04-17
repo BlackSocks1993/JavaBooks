@@ -46,30 +46,55 @@ public class QnAController extends HttpServlet {
 		String nextPage = "";
 		String action = req.getPathInfo();
 
-		HttpSession session = req.getSession();
-
 		try {
-			List<QnADTO> qnaList = new ArrayList<>();
-
 			// QnA게시판 전체 게시물을 리스트를 조회
-			if(action.equals("/qnalist.do")) {
-				int page = 1;
+			if("/qnalist.do".equals(action)) {				
+				List<QnADTO> qnaList = qnaService.selectQnAList();
 
-				
-				
+				String strPage = req.getParameter("page");
+				int page = 1;
+				if(strPage != "" && strPage != null) {
+					page = Integer.parseInt(strPage) > 0 ?
+							Integer.parseInt(strPage) : 1;
+				}
+
+				System.out.println("[page]: " + page);
+
+				Paging paging = new Paging(qnaList.size());
+				paging.paging(page);
+
+				req.setAttribute("paging", paging);
+				req.setAttribute("rQnaList", qnaList);
+
 				nextPage = "/QnA/mainQnA.jsp";
+				System.out.println(nextPage);
+			// end
 				
 
 
 			// 사용자가 클릭한 게시물의 번호를 조회하여 상세 페이지로 이동
-			} else if(true) {
-				
+			} else if("detailQna.do".equals(action)) {
+				String strQnaId = req.getParameter("qnaId");
+				QnADTO dto = null;
+
+				if(strQnaId != "" && strQnaId != null) {
+					int qnaId = Integer.parseInt(strQnaId);
+					dto = qnaService.selectOneQna(qnaId);
+				}
+
+				req.setAttribute("qnaDto", dto);
+				nextPage = "/QnA/detailQnA.jsp";
 
 
 
+			} else {
+				nextPage = "/QnA/detailQnA.jsp";
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		req.getRequestDispatcher(nextPage).forward(req, resp);
 	}
 }

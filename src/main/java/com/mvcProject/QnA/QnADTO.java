@@ -12,6 +12,7 @@ public class QnADTO {
 	private Date qna_date;
 	private int qna_views;
 	private int member_no;
+	private String member_id;
 
 	public int getQna_no() {
 		return qna_no;
@@ -60,6 +61,12 @@ public class QnADTO {
 	}
 	public void setMember_no(int member_no) {
 		this.member_no = member_no;
+	}
+	public String getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 
 }
