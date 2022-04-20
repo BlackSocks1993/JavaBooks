@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.Context;
@@ -70,18 +72,69 @@ public class QnADAO {
 	}
 
 	public void addQnA(QnADTO dto) {
-		// TODO Auto-generated method stub
-
+		try {
+			conn = dataFactory.getConnection();
+			String query = " INSERT INTO qna"
+					+ " VALUES("
+					+ " 	 QnA_seq.NEXTVAL "
+					// parent_no
+					+ " 	,? "
+					// type, title, content
+					+ "		,? ,? ,? "
+					// date, view, memeber_no
+					+ " 	,? ,0 ,? "
+					+ " ) ";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, 0);
+			pstmt.setString(2, dto.getQna_type());
+			pstmt.setString(3, dto.getQna_title());
+			pstmt.setString(4, dto.getQna_content());
+			pstmt.setDate(5, dto.getQna_date());
+			pstmt.setInt(6, dto.getMember_no());
+			pstmt.executeUpdate();
+			
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void modQnA(QnADTO dto) {
-		// TODO Auto-generated method stub
-
+		try {
+			conn = dataFactory.getConnection();
+			String query = " UPDATE qna "
+					+ " SET  qna_type = ? "
+					+ "		,qna_title = ? "
+					+ "		,qna_content = ? "
+					+ " WHERE qna_no = ? ";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, dto.getQna_type());
+			pstmt.setString(2, dto.getQna_title());
+			pstmt.setString(3, dto.getQna_content());
+			pstmt.setInt(4, dto.getQna_no());
+			pstmt.executeUpdate();
+			
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void delQnA(QnADTO dto) {
-		// TODO Auto-generated method stub
-
+	public void delQnA(int qna_no) {
+		try {
+			conn = dataFactory.getConnection();
+			String query = " DELETE FROM qna WHERE qna_no = ? ";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, qna_no);
+			pstmt.executeUpdate();
+			
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public List<QnADTO> searchQnA(QnADTO dto) {
@@ -94,14 +147,22 @@ public class QnADAO {
 
 		try {
 			conn = dataFactory.getConnection();
-			String query = " SELECT * FROM qna "
-					+ " WHERE qna_no = ? ";
-			pstmt.executeQuery();
+			String query = " SELECT "
+					+ "			 qna_no "
+					+ "			,qna_type "
+					+ "			,qna_title AS title "
+					+ "			,qna_content "
+					+ "			,qna_date "
+					+ "			,m.member_id "
+					+ " FROM qna q, member m "
+					+ " WHERE qna_no = ? "
+					+ " AND q.member_no = m.member_no ";
+			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, qnaId);
+			pstmt.executeQuery();
 			ResultSet rs = pstmt.getResultSet();
 			rs.next();
 			dto.setQna_no(rs.getInt("qna_no"));
-			dto.setQna_parent_no(rs.getInt("qna_parent_no"));
 			dto.setQna_type(rs.getString("qna_type"));
 			dto.setQna_title(rs.getString("title"));
 			dto.setQna_content(rs.getString("qna_content"));

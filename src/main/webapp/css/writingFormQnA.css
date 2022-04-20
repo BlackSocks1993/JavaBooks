@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+/* Writing Form start */
+
+.writing_container {
+    width: 900px;
+    min-width: 980px;
+    margin: 5rem auto;
+}
+
+.writing_container form .counselField {
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.writing_container form .counselField p {
+    margin-bottom: 10px;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.writing_container form .counselField label {
+    margin-right: 20px;
+}
+
+.writing_container form .counselField label:last-child {
+    margin-right: 0;
+}
+
+.writing_container form .counselField label input {
+    margin-right: 5px;
+}
+
+.writing_container form input[type="text"] {
+    font-size: 3rem;
+    font-weight: 700;
+    outline: none;
+    padding-bottom: 0.5rem;
+    border: none;
+    border-bottom: 1px solid #ced4da;
+    margin-bottom: 2rem;
+    width: 100%;
+    height: 4rem;
+}
+
+.writing_container form textarea {
+    width: 98%;
+    height: 30rem;
+    padding: 10px;
+    font-size: 1.2rem;
+}
+
+.bnt_set {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 5px;
+}
+
+
+.bnt_set button {
+    margin-left: 5px;
+}
+
+
+.bnt_set input, .bnt_set button {
+    width: 8%;
+    height: 3rem;
+}

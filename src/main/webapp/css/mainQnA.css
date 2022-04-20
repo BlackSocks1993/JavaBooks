@@ -51,21 +51,21 @@
 }
 
 .articles_wrapper .articlesList_wrapper > div .num,
-.articles_wrapper .articlesList_wrapper > div a .num { flex-grow: 1; text-align: center;}
+.articles_wrapper .articlesList_wrapper > div a .num { width: 10%; text-align: center;}
 
 .articles_wrapper .articlesList_wrapper > div .type,
-.articles_wrapper .articlesList_wrapper > div a .type { flex-grow: 1; text-align: center;}
+.articles_wrapper .articlesList_wrapper > div a .type { width: 10%;; text-align: center;}
 
 .articles_wrapper .articlesList_wrapper > div .title,
-.articles_wrapper .articlesList_wrapper > div a .title { flex-grow: 3; text-align: center;}
+.articles_wrapper .articlesList_wrapper > div a .title { width: 50%; text-align: center;}
 
-.articles_wrapper .articlesList_wrapper > div a .title { text-align: left; }
+.articles_wrapper .articlesList_wrapper > div a .title { text-align: left; margin-left: 10px; }
 
 .articles_wrapper .articlesList_wrapper > div .author,
-.articles_wrapper .articlesList_wrapper > div a .author { flex-grow: 1; }
+.articles_wrapper .articlesList_wrapper > div a .author { width: 15%; }
 
 .articles_wrapper .articlesList_wrapper > div .date,
-.articles_wrapper .articlesList_wrapper > div a .date { flex-grow: 1; }
+.articles_wrapper .articlesList_wrapper > div a .date { width: 15%; }
 
 
 

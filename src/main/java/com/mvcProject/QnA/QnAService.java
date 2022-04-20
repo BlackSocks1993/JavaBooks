@@ -20,4 +20,16 @@ public class QnAService {
 	public QnADTO selectOneQna(int qnaId) {
 		return qnaDAO.selectOneQna(qnaId);
 	}
+
+	public void addQnA(QnADTO dto) {
+		qnaDAO.addQnA(dto);
+	}
+
+	public void delQnA(int qna_no) {
+		qnaDAO.delQnA(qna_no);
+	}
+
+	public void modQnA(QnADTO dto) {
+		qnaDAO.modQnA(dto);
+	}
 }
