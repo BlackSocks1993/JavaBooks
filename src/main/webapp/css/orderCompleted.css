@@ -1,0 +1,72 @@
+@charset "EUC-KR";
+
+#container {
+	display: flex;
+	justify-content: center;
+}
+
+.completed_message {
+	font-size: 25px;
+}
+
+.message, footer {
+	text-align: center;
+}
+
+
+.wrap_tb {
+	margin-top: 50px;
+  	display: flex;
+  	justify-content: center;
+}
+
+.tb_info {
+	width: 700px;
+	
+}
+
+table { 
+	border-collapse:collapse;
+}
+
+td, th, table {
+   	border: none;
+}
+
+.tb_info_tr, .tb_pay {
+	height: 60px;
+}
+
+.tb_info td:first-child {
+	padding: 10px;
+    width: 100px;
+	text-align: left;
+	font-size: 13px;
+	font-weight: 900;
+}
+
+.tb_pay {
+	width: 130px;
+}
+
+.tb_pay td:last-child {
+	text-align: right;
+}
+
+.order_detail {
+	margin-left: 50px;
+	background-color: #FCF6F5;
+	height: 100%;
+	padding: 50px;
+}
+
+.payment_confirm_message {
+	margin-top: 50px;
+	
+}
+
+.total_payment {
+	font-size: 20px;
+	text-align: right;
+	margin-top: 30px;
+}

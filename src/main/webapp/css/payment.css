@@ -1,0 +1,53 @@
+@charset "EUC-KR";
+
+
+#container {
+	display: flex;
+	justify-content: center;
+}
+
+.order_detail {
+	margin-left: 50px;
+	background-color: #FCF6F5;
+	padding: 50px;
+}
+
+table {
+	width: 100%;
+	height: 80%;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	border-top: 1px solid #444444;
+}
+
+th, td {
+	text-align: center;
+	border-bottom: 1px solid black;
+	border-left: 1px solid black;
+	padding: 10px;
+}
+
+th:first-child, td:first-child {
+	border-left: none;
+}
+
+.total_info_div {
+	margin-left: 9rem;
+}
+
+.pro_img {
+	width: 30%;
+	height: 30%;
+}
+
+.input {
+  width: 500px;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+}
+
