@@ -6,7 +6,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="qnaList" value="${rQnaList}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +22,7 @@
         <div class="articlesHeader_wrapper">
             <h3>QnA 문의내역</h3>
             <div>
-                <button>글 작성</button>
+                <button onclick="location.href='writingForm.do'">글 작성</button>
             </div>
         </div>
 

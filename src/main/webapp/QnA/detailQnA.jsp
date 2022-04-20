@@ -5,9 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:set var="qnaDto" value="${qnaDto}" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="qnaList" value="${rQnaList}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,13 +21,13 @@
 	<section class="content_container">
         <div class="contentNum">
             <span>글번호</span>
-            <span class="cValue">100</span>
+            <span class="cValue">${qnaDto.getQna_no()}</span>
         </div>
         <div class="content_wrapper">
             <div class="userInfo_wrapper">
                 <div class="qType">
                     <span>분류</span>
-                    <span class="qValue">배송</span>
+                    <span class="qValue">${qnaDto.getQna_type()}</span>
                 </div>
                 <div class="userInfo">
                     <div class="userNameTel">
@@ -38,7 +36,7 @@
                             <p>연락처</p>
                         </div>
                         <div>
-                            <p>김ㅇㅇ</p>
+                            <p>김이름</p>
                             <p>010-1234-1234</p>
                         </div>
                     </div>
@@ -47,18 +45,29 @@
                             <p>아이디</p>
                         </div>
                         <div>
-                            <p>koo@gmail.coma</p>
+                            <p>${qnaDto.getMember_id()}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="article_wrapper">
                 <h3 class="detail_title">
-                    제목입니다.
+                    ${qnaDto.getQna_title()}
                 </h3>
                 <div class="article_content">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores distinctio suscipit accusantium molestias ullam aut nulla, voluptates placeat dolores laudantium ut exercitationem odit sunt quasi esse, nisi magnam deleniti cum!
+                    ${qnaDto.getQna_content()}
                 </div>
+            </div>
+            <div class="reply_del">
+            	<button onclick="location.href='qnalist.do'">답글쓰기</button>
+            	<button onclick="javascript:document.modfrm.submit();">수정하기</button>
+            	<button onclick="javascript:document.delfrm.submit();">삭제하기</button>
+            	<form name="modfrm" action="modQna.do" method="post">
+            		<input type="hidden" name="qna_no" value="${qnaDto.getQna_no()}" />
+            	</form>
+            	<form name="delfrm" action="delQna.do" method="post">
+            		<input type="hidden" name="qna_no" value="${qnaDto.getQna_no()}" />
+            	</form>
             </div>
         </div>
     </section>
