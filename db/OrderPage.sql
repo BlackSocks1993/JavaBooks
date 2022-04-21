@@ -1,31 +1,57 @@
---DROP TABLE member;
---DROP TABLE product_category;
---DROP SEQUENCE product_seq;
---DROP TABLE cart;
---DROP TABLE order_product;
---DROP TABLE qna;
---DROP TABLE qna_reply;
---DROP TABLE orders;
+DROP TABLE MEMBER;
+DROP TABLE QnA;
+DROP TABLE REPLY;
+DROP TABLE PRODUCT_CATEGORY;
+DROP TABLE PRODUCT;
+DROP TABLE CART;
+DROP TABLE ORDER_PRODUCT;
+DROP TABLE ORDERS;
 
--- 회원 테이블 생성
-CREATE TABLE member (
+DROP SEQUENCE QnA_seq;
+DROP SEQUENCE REPLY_seq;
+DROP SEQUENCE PRODUCT_CATEGORY_seq;
+DROP SEQUENCE PRODUCT_seq;
+DROP SEQUENCE MEMBER_seq;
+DROP SEQUENCE ORDERS_seq;
+
+
+-- 테이블 생성
+CREATE TABLE MEMBER (
 	member_no	NUMBER(12)		NOT NULL,
 	member_email	VARCHAR(45)		NOT NULL,
 	member_pw	VARCHAR(45)		NOT NULL,
 	member_name	VARCHAR(10)		NOT NULL,
 	member_add	VARCHAR(255)		NOT NULL,
 	member_phone	VARCHAR(20)		NOT NULL
+	member_id   VARCHAR(45)     NOT NULL
 );
 
+CREATE TABLE QnA (
+	qna_no	NUMBER(12)		NOT NULL,
+	qna_parent_no	NUMBER(12)	DEFAULT 0	NOT NULL,
+	qna_type	VARCHAR(45)		NOT NULL,
+	qna_title	VARCHAR(45)		NOT NULL,
+	qna_content	LONG		NULL,
+	qna_date	DATE		NOT NULL,
+	qna_views	NUMBER(12)	DEFAULT 0	NOT NULL,
+	member_no	NUMBER(12)		NOT NULL
+);
 
--- 카테고리 테이블 생성
+CREATE TABLE REPLY (
+	reply_no	NUMBER(12)		NOT NULL,
+	reply_parent_no	NUMBER(12)	DEFAULT 0	NOT NULL,
+	reply_content	VARCHAR(500)		NULL,
+	reply_date	DATE		NOT NULL,
+	qna_no	NUMBER(12)		NOT NULL,
+    member_no	NUMBER(12)		NOT NULL
+);
+
 CREATE TABLE PRODUCT_CATEGORY (
 	product_category_no	NUMBER(12)		NOT NULL,
 	product_category_name	VARCHAR(45)		NOT NULL
 );
 
---상품 테이블 생성, db내용 insert
-create table PRODUCT (
+CREATE TABLE PRODUCT (
     product_no        NUMBER(12)     NOT NULL,
     product_name      VARCHAR(100)   NOT NULL,
     product_author    VARCHAR(100)   NOT NULL,
@@ -38,13 +64,272 @@ create table PRODUCT (
     product_img       VARCHAR(255)   NULL
 );
 
+CREATE TABLE CART (
+	member_no	NUMBER(12)		NOT NULL,
+	cart_amount	NUMBER(5)		NOT NULL,
+	product_no	NUMBER(12)		NOT NULL
+);
+
+CREATE TABLE ORDER_PRODUCT (
+	order_product_quantity	NUMBER(5)		NOT NULL,
+	order_no	NUMBER(12)		NOT NULL,
+	product_no	NUMBER(12)		NOT NULL,
+    total_price NUMBER(20)      NOT NULL,
+    product_name      VARCHAR(100)   NOT NULL,
+    product_img VARCHAR(255)   NULL
+);
+
+CREATE TABLE ORDERS (
+	order_no	NUMBER(12)		NOT NULL,
+	order_date	DATE		    NOT NULL,
+    order_addr  VARCHAR(255)    NOT NULL,
+    order_memo  VARCHAR(500)    NULL,
+	member_no	NUMBER(12)		NOT NULL,
+    order_name  VARCHAR(10)		NOT NULL,
+    order_phone  VARCHAR(20)	NOT NULL,
+    order_final_price  NUMBER(20)	NOT NULL
+);
+
+
+
+-- PK 제약조건 추가
+ALTER TABLE QnA ADD CONSTRAINT PK_QNA PRIMARY KEY (
+	qna_no
+);
+
+ALTER TABLE MEMBER ADD CONSTRAINT PK_MEMBER PRIMARY KEY (
+	member_no
+);
+
+ALTER TABLE REPLY ADD CONSTRAINT PK_REPLY PRIMARY KEY (
+	reply_no
+);
+
+ALTER TABLE PRODUCT_CATEGORY ADD CONSTRAINT PK_PRODUCT_CATEGORY PRIMARY KEY (
+	product_category_no
+);
+
 ALTER TABLE PRODUCT ADD CONSTRAINT PK_PRODUCT PRIMARY KEY (
 	product_no
 );
 
+ALTER TABLE CART ADD CONSTRAINT PK_CART PRIMARY KEY (
+	member_no
+);
 
--- 상품번호 시퀀스 생성
+ALTER TABLE ORDER_PRODUCT ADD CONSTRAINT PK_ORDER_PRODUCT PRIMARY KEY (
+	order_product_no
+);
+
+ALTER TABLE ORDERS ADD CONSTRAINT PK_ORDER PRIMARY KEY (
+	order_no
+);
+
+
+-- 비식별 제약조건 추가
+ALTER TABLE QnA ADD CONSTRAINT FK_MEMBER_TO_QnA_1 FOREIGN KEY (
+	member_no
+)
+REFERENCES MEMBER (
+	member_no
+);
+
+ALTER TABLE REPLY ADD CONSTRAINT FK_QnA_TO_REPLY_1 FOREIGN KEY (
+	qna_no
+)
+REFERENCES QnA (
+	qna_no
+);
+
+ALTER TABLE REPLY ADD CONSTRAINT FK_MEMBER_TO_REPLY_1 FOREIGN KEY (
+	member_no
+)
+REFERENCES MEMBER (
+	member_no
+);
+
+
+-- 시퀀스 생성
+CREATE SEQUENCE QnA_seq NOCYCLE;
+CREATE SEQUENCE REPLY_seq NOCYCLE;
+CREATE SEQUENCE PRODUCT_CATEGORY_seq NOCYCLE;
 CREATE SEQUENCE PRODUCT_seq NOCYCLE;
+CREATE SEQUENCE MEMBER_seq NOCYCLE;
+CREATE SEQUENCE ORDERS_seq NOCYCLE;
+
+
+
+-- category 테이블 값 추가
+INSERT INTO product_category
+values (product_category_seq.nextval
+,'소설');
+
+INSERT INTO product_category
+values (product_category_seq.nextval
+,'에세이');
+
+
+
+-- member 테이블 값 추가
+INSERT INTO member
+values (member_seq.nextval
+,'admin01@email.coma'
+,'admin01'
+,'관리자'
+,'서울시 강동구'
+,'010-5003-2442');
+
+INSERT INTO member
+values (member_seq.nextval
+,'user01@email.coma'
+,'user01'
+,'사용자'
+,'서울시 강남구'
+,'010-1111-2222');
+ select * from member;
+INSERT INTO member
+values (member_seq.nextval
+,'user02@email.coma'
+,'user02'
+,'사용자'
+,'서울시 강서구'
+,'010-3333-4444');
+
+
+
+-- qna 테이블 값 추가
+INSERT INTO qna
+VALUES (QnA_seq.NEXTVAL
+,0
+,'주문/결제'
+,'Lorem ipsum dolor sit amet'
+,'<p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,</p>
+<p>totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt,</p>
+<p>explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos,</p>
+<p>qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur,</p>
+<p>adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem.</p>'
+,TO_DATE('2022/01/01', 'yy/mm/dd')
+,10
+,1
+);
+
+INSERT INTO qna
+VALUES (QnA_seq.NEXTVAL
+,0
+,'배송'
+,'Lorem ipsum dolor sit amet'
+,'<p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,</p>
+<p>totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt,</p>
+<p>explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos,</p>
+<p>qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur,</p>
+<p>adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem.</p>'
+,TO_DATE('2022/01/02', 'yy/mm/dd')
+,5
+,2
+);
+
+INSERT INTO qna
+VALUES (QnA_seq.NEXTVAL
+,1
+,'답변'
+,'Lorem ipsum dolor sit amet'
+,'<p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,</p>
+<p>totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt,</p>
+<p>explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos,</p>
+<p>qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur,</p>
+<p>adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem.</p>'
+,TO_DATE('2022/01/02', 'yy/mm/dd')
+,1
+,3
+);
+
+INSERT INTO qna
+VALUES (QnA_seq.NEXTVAL
+,0
+,'주문/결제'
+,'Lorem ipsum dolor sit amet'
+,'<p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,</p>
+<p>totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt,</p>
+<p>explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos,</p>
+<p>qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur,</p>
+<p>adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem.</p>'
+,TO_DATE('2022/01/03', 'yy/mm/dd')
+,5
+,1
+);
+
+INSERT INTO qna
+VALUES (QnA_seq.NEXTVAL
+,0
+,'주문/결제'
+,'Lorem ipsum dolor sit amet'
+,'<p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,</p>
+<p>totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt,</p>
+<p>explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos,</p>
+<p>qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur,</p>
+<p>adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem.</p>'
+,TO_DATE('2022/01/04', 'yy/mm/dd')
+,100
+,1
+);
+
+INSERT INTO qna
+VALUES (QnA_seq.NEXTVAL
+,0
+,'배송'
+,'Lorem ipsum dolor sit amet'
+,'<p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,</p>
+<p>totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt,</p>
+<p>explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos,</p>
+<p>qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur,</p>
+<p>adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem.</p>'
+,TO_DATE('2022/01/05', 'yy/mm/dd')
+,50
+,2
+);
+
+INSERT INTO qna
+VALUES (QnA_seq.NEXTVAL
+,7
+,'답변'
+,'Lorem ipsum dolor sit amet'
+,'<p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,</p>
+<p>totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt,</p>
+<p>explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos,</p>
+<p>qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur,</p>
+<p>adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem.</p>'
+,TO_DATE('2022/01/06', 'yy/mm/dd')
+,3
+,3
+);
+
+INSERT INTO qna
+VALUES (QnA_seq.NEXTVAL
+,0
+,'주문'
+,'Lorem ipsum dolor sit amet'
+,'<p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,</p>
+<p>totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt,</p>
+<p>explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos,</p>
+<p>qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur,</p>
+<p>adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem.</p>'
+,TO_DATE('2022/01/07', 'yy/mm/dd')
+,3
+,2
+);
+
+
+
+-- reply 테이블 값 추가
+INSERT INTO reply
+VALUES (reply_seq.NEXTVAL
+,0
+,'Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium'
+,TO_DATE('2022/01/05', 'yy/mm/dd')
+,1
+,2);
+
+
 
 -- product 테이블 값 추가
 INSERT INTO PRODUCT
@@ -150,150 +435,5 @@ VALUES (PRODUCT_seq.NEXTVAL,
 2,
 'http://image.yes24.com/goods/105526047/XL'
 );
-
-
--- 장바구니 테이블 생성
-CREATE TABLE cart (
-	member_no	NUMBER(12)		NOT NULL,
-	cart_amount	NUMBER(5)		NOT NULL,
-	product_no	NUMBER(12)		NOT NULL
-);
-
--- 주문상품 테이블 생성
-CREATE TABLE order_product (
-	order_product_no	NUMBER(12)		NOT NULL,
-	order_product_quantity	NUMBER(5)		NOT NULL,
-	order_no	NUMBER(12)		NOT NULL,
-	product_no	NUMBER(12)		NOT NULL
-);
-
-
--- 주문 테이블 생성
-CREATE TABLE orders (
-	order_no	NUMBER(12)		NOT NULL,
-	order_date	DATE		    NOT NULL,
-    order_addr  VARCHAR(255)    NOT NULL,
-    order_memo  VARCHAR(500)    NULL,
-	member_no	NUMBER(12)		NOT NULL
-);
-
-ALTER TABLE member ADD CONSTRAINT PK_MEMBER PRIMARY KEY (
-	member_no
-);
-
-ALTER TABLE product_category ADD CONSTRAINT PK_PRODUCT_CATEGORY PRIMARY KEY (
-	product_category_no
-);
-
-ALTER TABLE product ADD CONSTRAINT PK_PRODUCT PRIMARY KEY (
-	product_no
-);
-
-ALTER TABLE cart ADD CONSTRAINT PK_CART PRIMARY KEY (
-	member_no
-);
-
-ALTER TABLE order_product ADD CONSTRAINT PK_ORDER_PRODUCT PRIMARY KEY (
-	order_product_no
-);
-
-ALTER TABLE qna ADD CONSTRAINT PK_QNA PRIMARY KEY (
-	qna_no
-);
-
-ALTER TABLE qna_reply ADD CONSTRAINT PK_QNA_REPLY PRIMARY KEY (
-	qna_reply_no
-);
-
-ALTER TABLE orders ADD CONSTRAINT PK_ORDER PRIMARY KEY (
-	order_no
-);
-
-ALTER TABLE orders ADD CONSTRAINT PK_ORDER PRIMARY KEY (
-	order_no
-);
-
--- 시퀀스들 생성
-CREATE SEQUENCE member_seq NOCYCLE;
-CREATE SEQUENCE product_category_seq NOCYCLE;
-CREATE SEQUENCE product_seq NOCYCLE;
-CREATE SEQUENCE order_product_seq NOCYCLE;
-CREATE SEQUENCE qna_seq NOCYCLE;
-CREATE SEQUENCE qna_reply_seq NOCYCLE;
-CREATE SEQUENCE orders_seq NOCYCLE;
-
--- 카테고리 DB데이터 추가
-INSERT INTO product_category
-values (product_category_seq.nextval
-,'소설');
-
-INSERT INTO product_category
-values (product_category_seq.nextval
-,'에세이');
-
--- 회원 DB데이터 추가
-INSERT INTO member
-values (member_seq.nextval
-,'admin01@email.coma'
-,'admin01'
-,'관리자'
-,'서울시 강동구'
-,'010-5003-2442');
-
-INSERT INTO member
-values (member_seq.nextval
-,'user01@email.coma'
-,'user01'
-,'사용자'
-,'서울시 강남구'
-,'010-1111-2222');
- select * from member;
-INSERT INTO member
-values (member_seq.nextval
-,'user02@email.coma'
-,'user02'
-,'사용자'
-,'서울시 강서구'
-,'010-3333-4444');
-
-
-INSERT INTO qna
-value (qna_seq.nextval
-,0
-,1
-,'질문 종류'
-,'제목'
-,'내용'
-,TO_DATE((SYSDATE), 'yy/mm/dd')
-,10
-);
-
-INSERT INTO qna_reply
-value (qna_reply_seq.nextval
-,0
-,1
-,TO_DATE((SYSDATE), 'yy/mm/dd')
-,'댓글 입니다.'
-);
-
-INSERT INTO qna_reply
-value (qna_reply_seq.nextval
-,1
-,1
-,TO_DATE((SYSDATE), 'yy/mm/dd')
-,'대댓글 입니다.'
-);
-
-
--- 주문 값 추가
-INSERT INTO orders
-values (orders_seq.nextval
-,TO_DATE((SYSDATE), 'yy/mm/dd')
-,1
-);
-
-ALTER TABLE orders ADD(order_name varchar(10) NOT NULL);
-ALTER TABLE orders ADD(order_phone varchar(20) NOT NULL);
-
 
 commit;
