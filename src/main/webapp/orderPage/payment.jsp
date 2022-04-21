@@ -25,6 +25,11 @@ String[] arr_product_price = request.getParameterValues("product_price");
 String[] arr_product_name = request.getParameterValues("product_name");
 String[] arr_product_img = request.getParameterValues("product_img");
 
+/* 결제정보div에 넣을 상품 가격 값 가져오기 */
+String product_price = request.getParameter("product_price");
+int total_price = Integer.parseInt(request.getParameter("product_price")) + 2500;
+
+
 /* 배열로 온것들을 리스트로 담는다 */
 List productsList = new ArrayList();
 for(int i=0; i<arr_product_price.length; i++){
@@ -37,7 +42,6 @@ for(int i=0; i<arr_product_price.length; i++){
 }
 
 request.setAttribute("productsList", productsList);
-
 
 
 
@@ -67,7 +71,7 @@ request.setAttribute("productsList", productsList);
 			</div>
 			
 			<div>
-				<div>
+				<div id="purchaser_info">
 					<h2>*구매자 정보*</h2>
 					<table>
 						<tr>
@@ -150,40 +154,42 @@ request.setAttribute("productsList", productsList);
 			
 		</section>
 		
-		<aside class="total_info_div">
-		
-			<h2>*결제정보*</h2>
+		<aside class="total_info">
+			<div class="total_info_div">
+				<h2 id="pay_info">*결제정보*</h2>
+				<div class="total_info_price_div">
+					<ul>
+						<li>
+							<span class="price_span_label">상품 금액 : </span>
+							<span class="totalPrice_span"><fmt:formatNumber value="<%= product_price %>" pattern="#,### 원" /></span>
+						</li>
+						<li>
+							<span class="price_span_label">배송비 : </span>
+							<span class="delivery_price_span"><fmt:formatNumber value="2500" pattern="#,### 원" /></span>
+						</li>
+						<li class="price_total_li">
+							<strong class="price_span_label total_price_label">최종 결제 금액</strong>
+							<strong class="strong_red">
+								<span class="total_price_red finalTotalPrice_span">
+									<fmt:formatNumber value="<%= total_price %>" pattern="#,### 원" />
+								</span>
+							</strong>
+						</li>
+					</ul>
+				</div>
 			
-			<div class="total_info_price_div">
-				<ul>
-					<li>
-						<span class="price_span_label">상품 금액</span>
-						<span class="totalPrice_span"><fmt:formatNumber value="" pattern="#,### 원" /></span>
-					</li>
-					<li>
-						<span class="price_span_label">배송비</span>
-						<span class="delivery_price_span">2500</span>원
-					</li>
-					<li class="price_total_li">
-						<strong class="price_span_label total_price_label">최종 결제 금액</strong>
-						<strong class="strong_red">
-							<span class="total_price_red finalTotalPrice_span">
-								103500
-							</span>원
-						</strong>
-					</li>
-				</ul>
-			</div>
 
-			<div>
-				<h3>결제방법</h3>
+			<div class="pay_option">
+				<h3 id="h3_pay_option">결제방법</h3>
 				<input type="radio" name="payment_method" value="신용카드">신용카드
 				<input type="radio" name="payment_method" value="무통장 입금">무통장 입금
 			</div>
 			
-			<input class="click_button" type="submit" value="결제하기">
-			<input type="hidden" name="orderList_size" value="3">
-			
+			<div class="click_button_div">
+				<input type="submit" value="결제하기">
+				<input type="hidden" name="orderList_size" value="3">
+			</div>
+			</div>
 		</aside>
 		</div>
 	</form>

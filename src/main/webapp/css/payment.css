@@ -12,10 +12,13 @@
 	padding: 50px;
 }
 
+#purchaser_info {
+	margin-top: 40px;
+}
+
 table {
 	width: 100%;
 	height: 80%;
-	margin-top: 30px;
 	margin-bottom: 30px;
 	border-top: 1px solid #444444;
 }
@@ -31,8 +34,30 @@ th:first-child, td:first-child {
 	border-left: none;
 }
 
-.total_info_div {
+.total_info {
 	margin-left: 9rem;
+}
+
+.total_info_div {
+	background-color: #FCF6F5;
+	width: 200px;
+	height: 350px;
+	padding: 20px;
+}
+
+#pay_info {
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+.pay_option {
+	padding: 20px;
+	margin-top: 30px;
+}
+
+#h3_pay_option {
+	margin-bottom: 10px;
 }
 
 .pro_img {
@@ -51,3 +76,11 @@ th:first-child, td:first-child {
   background-color: rgb(233, 233, 233);
 }
 
+li {
+	padding: 10px;
+}
+
+.click_button_div {
+	margin-top: 20px;
+	text-align: center;
+}

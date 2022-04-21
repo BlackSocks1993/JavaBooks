@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*" import="com.mvcProject.product.*" 
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,6 +13,35 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
+
+<%
+
+/* detail.jsp에서 쿼리 스트링에서 받아오는 값 */
+
+/* product_price라는 key값을 가져오는데 key값이 똑같으면 배열로 온다 */
+String[] arr_product_price = request.getParameterValues("product_price");
+String[] arr_product_name = request.getParameterValues("product_name");
+String[] arr_product_img = request.getParameterValues("product_img");
+
+/* 결제정보div에 넣을 상품 가격 값 가져오기 */
+String product_price = request.getParameter("product_price");
+int total_price = Integer.parseInt(request.getParameter("product_price")) + 2500;
+
+
+/* 배열로 온것들을 리스트로 담는다 */
+List productsList = new ArrayList();
+for(int i=0; i<arr_product_price.length; i++){
+	ProductDTO pDTO = new ProductDTO();
+	pDTO.setProduct_price(Integer.parseInt(arr_product_price[i]));
+	pDTO.setProduct_name(arr_product_name[i]);
+	pDTO.setProduct_img(arr_product_img[i]);
+
+	productsList.add(pDTO);
+}
+
+request.setAttribute("productsList", productsList);
+
+%>
 	<nav>
 		<%@include file="../common/header.jsp"%>
 	</nav>
@@ -56,23 +85,32 @@
 		<aside class="order_detail">
 			<div>
 				<table>
-					<tr>
-						<td><img src="images/sample1.png"></td>
-						<td>
-							<table>
+				
+					<c:choose>
+						<c:when test="${!empty productsList}">
+							<c:forEach items="${productsList}" var="pro" >
 								<tr>
-									<td>책 제목</td>
+									<td rowspan="3"><img class="pro_img" src="${pro.product_img}"></td>
+									<td></td>
 								</tr>
 								<tr>
-									<td>가격</td>
+									<td></td>
+									<td>${pro.product_name }</td>
 								</tr>
-								<tr>
-									<td>수량 : 1개</td>
+								<tr class="products_table_price_td">
+									<td></td>
+									<td><fmt:formatNumber value="${pro.product_price}" pattern="#,### 원" /> | 수량 1개</td>
 								</tr>
-							</table>
+							</c:forEach>
+						</c:when>
 						
-						</td>
-					</tr>
+						<c:otherwise>
+							<tr>
+								<td colspan="3">등록된 자료가 없습니다.</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
+					
 				</table>
 			</div>
 			
@@ -80,11 +118,11 @@
 				<table class="tb_pay">
 					<tr>
 						<td>상품금액</td>
-						<td>40,000원</td>
+						<td><fmt:formatNumber value="<%= product_price %>" pattern="#,### 원" /></td>
 					</tr>
 					<tr>
 						<td>배송비</td>
-						<td>3,500원</td>
+						<td><fmt:formatNumber value="2500" pattern="#,### 원" /></td>
 					</tr>
 					<tr>
 						<td>결제수단</td>
@@ -93,7 +131,7 @@
 				</table>
 			<div class="total_payment">
 				결제 금액<br>
-				13,500원
+				<fmt:formatNumber value="<%= total_price %>" pattern="#,### 원" />
 			</div>
 			</div>
 		</aside>
