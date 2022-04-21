@@ -44,16 +44,6 @@ for(int i=0; i<arr_product_price.length; i++){
 request.setAttribute("productsList", productsList);
 
 
-
-
-
-
-
-/*
-	el태그로 productList로 바로 접근할 수 있음
-	String[] arr_product_name = request.getParameterValues("product_name");
-*/
-
 %>
 
 
@@ -129,10 +119,9 @@ request.setAttribute("productsList", productsList);
 										<td>${pro.product_name }</td>
 										<td class="products_table_price_td">
 											<fmt:formatNumber value="${pro.product_price}" pattern="#,### 원" /> | 수량 1개
-<%-- 											<br><fmt:formatNumber value="${pro.totalPrice}" pattern="#,### 원" /> --%>
 											<input type="hidden" name="product_price" value="${pro.product_price}">
-<%-- 											<input type="hidden" name="order_product_quantity" value="${pro.order_product_quantity}"> --%>
-<%-- 											<input type="hidden" name="final_total_price" value="${pro.product_price * pro.order_product_quantity}"> --%>
+											<input type="hidden" name="order_product_quantity" value="1">
+											<!-- quantity value값은 임시로 적어둠(장바구니 값 못 받아온 상태임) -->
 											<input type="hidden" name="product_name" value="${pro.product_name}">
 											<input type="hidden" name="product_img" value="${pro.product_img}">
 										</td>
@@ -187,7 +176,8 @@ request.setAttribute("productsList", productsList);
 			
 			<div class="click_button_div">
 				<input type="submit" value="결제하기">
-				<input type="hidden" name="orderList_size" value="3">
+				<!-- 주문한 상품 목록 사이즈 값을 controller에서 for문 돌릴 예정 -->
+				<input type="hidden" name="productsList_size" value="<%= productsList.size() %>">
 			</div>
 			</div>
 		</aside>

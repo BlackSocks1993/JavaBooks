@@ -7,10 +7,27 @@ import com.mvcProject.user.MemberDTO;
 
 public interface OrderInterface {
 
-	MemberDTO selectMemberInfo(int memberNo); // 회원 정보 select
+	// 회원 정보 select
+	MemberDTO selectMemberInfo(int memberNo); 
 
-	List<ProductDTO> selectProductList(List<String> product_no); // 상품 정보 select
+	
+	// 상품 정보 select
+	List<ProductDTO> selectProductList(List<String> product_no); 
 
-	int addOrder(OrderDTO dto); // 주문 정보 insert
+	
+	// 주문 정보 insert
+	int addOrder(OrderDTO dto); 
+	
+	
+	// order테이블의 order_no의 최댓값 받기(select하기)
+	int selectOrderNo_max();
+	
+	
+	// 주문상품 테이블 insert
+	int addProductOrder(OrderProductDTO ord_pro_dto);
+	
+	
+	
+	
 	
 }

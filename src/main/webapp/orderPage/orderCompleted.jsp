@@ -15,18 +15,14 @@
 <body>
 
 <%
-
-/* detail.jsp에서 쿼리 스트링에서 받아오는 값 */
-
-/* product_price라는 key값을 가져오는데 key값이 똑같으면 배열로 온다 */
+/* 주문 상품 정보 */
 String[] arr_product_price = request.getParameterValues("product_price");
 String[] arr_product_name = request.getParameterValues("product_name");
 String[] arr_product_img = request.getParameterValues("product_img");
 
-/* 결제정보div에 넣을 상품 가격 값 가져오기 */
+/* 결제 금액 */
 String product_price = request.getParameter("product_price");
 int total_price = Integer.parseInt(request.getParameter("product_price")) + 2500;
-
 
 /* 배열로 온것들을 리스트로 담는다 */
 List productsList = new ArrayList();
@@ -52,7 +48,7 @@ request.setAttribute("productsList", productsList);
 			<div class="message">
 				<span class="completed_message"><strong>고객님의 주문이 완료되었습니다.</strong></span><br>
 				<span class="completed_message">자바북스를 이용해주셔서 감사합니다.</span><br>
-				고객님의 주문번호는 order_num 입니다.
+				고객님의 주문번호는 ${order_no} 입니다.
 			</div>
 			
 			
@@ -73,7 +69,7 @@ request.setAttribute("productsList", productsList);
 					</tr>
 					<tr class="tb_info_tr">
 						<td>결제금액</td>
-						<td><%= request.getParameter("final_total_price") %></td>
+						<td><fmt:formatNumber value="<%= total_price %>" pattern="#,### 원" /></td>
 					</tr>
 				</table>
 			</div>

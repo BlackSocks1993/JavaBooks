@@ -2,19 +2,14 @@ package com.mvcProject.orderPage;
 
 public class OrderProductDTO {
 
-	private int order_product_no;
 	private int order_product_quantity;
 	private int order_no;
 	private int product_no;
 	private int totalPrice;
+	private String product_name;
+	private String product_img;
 	
 	
-	public int getOrder_product_no() {
-		return order_product_no;
-	}
-	public void setOrder_product_no(int order_product_no) {
-		this.order_product_no = order_product_no;
-	}
 	public int getOrder_product_quantity() {
 		return order_product_quantity;
 	}
@@ -38,6 +33,18 @@ public class OrderProductDTO {
 	}
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+	public String getProduct_img() {
+		return product_img;
+	}
+	public void setProduct_img(String product_img) {
+		this.product_img = product_img;
 	}
 	
 

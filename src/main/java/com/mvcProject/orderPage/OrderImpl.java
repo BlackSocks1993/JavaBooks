@@ -69,18 +69,12 @@ public class OrderImpl implements OrderInterface {
 		List<ProductDTO> list = new ArrayList<>();
 		try {
 			
-			// 그냥 임의로 장바구니 리스트 만들어놨음 까먹을까봐
-			//List cartList = new ArrayList();
-			
-			
 			this.con = this.dataFactory.getConnection();
 			
 			String query = "";
 				query += " SELECT * FROM product ";
 				query += " where product_no IN ( ";
 				
-			// 장바구니에서 넘어온 상품들의 개수를 모르니까 ?의 개수를 적을 수 없다
-			// 그래서 상품들의 개수를 받은 값으로 for문을 돌려서 ?를 찍게 한다
 			for(int i=1; i <= cartList.size(); i++) {
 				if( i == cartList.size() ) { // 마지막 물음표를 찍을때 괄호 같이 붙여서찍음
 					query += " ? ) "; 
@@ -123,22 +117,23 @@ public class OrderImpl implements OrderInterface {
 
 
 	
-	// 주문 배송정보, 상품정보 INSERT
+	// 주문 배송정보, 상품정보를 orders테이블에 INSERT
 	public int addOrder(OrderDTO dto) {
 		try {
 			con = dataFactory.getConnection();
 			
 			String query = " INSERT INTO orders ";
-			query +=       " (order_no, order_date, order_addr, order_memo, member_no, order_name, order_phone ) ";
-			query +=       " VALUES (orders_seq.nextval, sysdate, ?, ?, ?, ?, ?) "; 
+			query +=       " (order_no, order_date, order_addr, order_memo, member_no, order_name, order_phone, order_final_price ) ";
+			query +=       " VALUES (orders_seq.nextval, sysdate, ?, ?, ?, ?, ?, ?) "; 
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, dto.getOrder_addr());
 			pstmt.setString(2, dto.getOrder_memo());
 			pstmt.setInt(3, dto.getMember_no());
 			pstmt.setString(4, dto.getOrder_name());
 			pstmt.setString(5, dto.getOrder_phone());
+			pstmt.setInt(6, dto.getOrderFinalPrice());
 			
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -157,10 +152,78 @@ public class OrderImpl implements OrderInterface {
 		return 0;
 	}
 
-
-	public void addProductOrder(OrderProductDTO orderProductDTO) {
-		// TODO Auto-generated method stub
+	
+	/* 주문상품테이블에 INSERT */
+	public int addProductOrder(OrderProductDTO opDTO) {
 		
+		try {
+			con = dataFactory.getConnection();
+			
+			String query = " INSERT INTO order_product ";
+					query +=" (";
+					query +=	 "order_product_quantity, ";
+					query +=	 "order_no, ";
+					query +=	 "product_no, ";
+					query +=	 "total_price, ";
+					query +=	 "product_name, ";
+					query +=	 "product_img";
+					query += ") ";
+					query += " VALUES "; 
+					query += " (?, orders_seq.nextval, product_seq.nextval, ?, ?, ?) "; 
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, opDTO.getOrder_product_quantity());
+			pstmt.setInt(2, opDTO.getTotalPrice());
+			pstmt.setString(3, opDTO.getProduct_name());
+			System.out.println(opDTO.getProduct_name());
+			pstmt.setString(4, opDTO.getProduct_img());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				
+				if (con != null) con.close(); 
+				if (pstmt != null) pstmt.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return 0;
+		// insert가 몇 개 되었는지
+		
+	}
+
+	
+	/* 주문번호 생성을 위해 현재 Order테이블의 order_no 최댓값 받아오기 */
+	@Override
+	public int selectOrderNo_max() {
+		int order_no = 0;
+		try {
+			this.con = this.dataFactory.getConnection();
+			String query = " SELECT max(order_no) as max_order_no FROM orders ";
+			this.pstmt = this.con.prepareStatement(query);
+//			this.pstmt.setInt(1, );
+			ResultSet rs = this.pstmt.executeQuery();
+			while (rs.next()) {
+				order_no = rs.getInt("max_order_no");
+			}
+			if (rs != null)
+				rs.close();
+			if (this.pstmt != null)
+				this.pstmt.close();
+			if (this.con != null)
+				this.con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return order_no;
 	}
 
 
