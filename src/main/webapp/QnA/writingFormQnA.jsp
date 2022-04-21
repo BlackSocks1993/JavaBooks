@@ -29,42 +29,10 @@
 		</c:choose>
         
             <p>상담을 원하는 분야를 선택해주세요.</p>
-        	<c:choose>
-        		<c:when test="${not empty dto}">
-        			<c:if test='${dto.getQna_type() eq "주문/배송"}'>
-        				<label><input type="radio" name="cType" value="order" checked>주문 / 배송</label>
-        			</c:if>
-        			<c:if test='${dto.getQna_type() ne "주문/배송"}'>
-        				<label><input type="radio" name="cType" value="order">주문 / 배송</label>
-        			</c:if>
-        			<c:if test='${dto.getQna_type() eq "반품/교환"}'>
-        				<label><input type="radio" name="cType" value="return" checked>반품 / 교환</label>
-        			</c:if>
-        			<c:if test='${dto.getQna_type() ne "반품/교환"}'>
-        				<label><input type="radio" name="cType" value="order">주문 / 배송</label>
-        			</c:if>
-        			
-	                <c:if test='${dto.getQna_type() eq "환불"}'>
-        				<label><input type="radio" name="cType" value="refund" checked>환불</label>
-        			</c:if>
-        			<c:if test='${dto.getQna_type() ne "환불"}'>
-        				<label><input type="radio" name="cType" value="refund">환불</label>
-        			</c:if>
-        			
-        			<c:if test='${dto.getQna_type() eq "기타"}'>
-        				<label><input type="radio" name="cType" value="other" checked>기타</label>
-        			</c:if>
-        			<c:if test='${dto.getQna_type() ne "기타"}'>
-        				<label><input type="radio" name="cType" value="other">기타</label>
-        			</c:if>
-        		</c:when>
-        		<c:when test="${empty dto}">
-        			<label><input type="radio" name="cType" value="order">주문 / 배송</label>
-	                <label><input type="radio" name="cType" value="return">반품 / 교환</label>
-	                <label><input type="radio" name="cType" value="refund">환불</label>
-	                <label><input type="radio" name="cType" value="other">기타</label>
-        		</c:when>
-        	</c:choose>
+       			<label><input type="radio" name="cType" value="order">주문 / 배송</label>
+                <label><input type="radio" name="cType" value="return">반품 / 교환</label>
+                <label><input type="radio" name="cType" value="refund">환불</label>
+                <label><input type="radio" name="cType" value="other">기타</label>
             <div class="counselField">
                 
             </div>
@@ -107,5 +75,25 @@
     </section>
 	
 	<%@include file="../common/footer.jsp"%>
+	
+	<script>
+		let qType = '${dto.getQna_type()}';
+		console.log(qType);
+		if (qType !== null && qType) {
+			switch(qType) {
+				case '주문/배송':
+					document.querySelector('input[value="order"]').setAttribute('checked', '');
+					break;
+				case '반품/교환':
+					document.querySelector('input[value="return"]').setAttribute('checked', '');
+					break;
+				case '환불':
+					document.querySelector('input[value="refund"]').setAttribute('checked', '');
+					break;
+				case '기타':
+					document.querySelector('input[value="other"]').setAttribute('checked', '');
+			}
+		}
+	</script>
 </body>
 </html>

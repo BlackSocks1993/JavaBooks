@@ -42,7 +42,7 @@ public class QnADAO {
 					+ "    ,qna_title AS title "
 					+ "    ,qna_content "
 					+ "    ,qna_date "
-					+ "    ,m.member_id "
+					+ "    ,m.member_email AS member_id "
 					+ " FROM qna q, member m "
 					+ " WHERE q.member_no = m.member_no "
 					+ " START WITH qna_parent_no = 0 "
@@ -153,7 +153,7 @@ public class QnADAO {
 					+ "			,qna_title AS title "
 					+ "			,qna_content "
 					+ "			,qna_date "
-					+ "			,m.member_id "
+					+ "			,m.member_email AS member_id "
 					+ " FROM qna q, member m "
 					+ " WHERE qna_no = ? "
 					+ " AND q.member_no = m.member_no ";

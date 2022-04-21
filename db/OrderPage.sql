@@ -19,7 +19,7 @@ CREATE TABLE member (
 
 
 -- 카테고리 테이블 생성
-CREATE TABLE product_category (
+CREATE TABLE PRODUCT_CATEGORY (
 	product_category_no	NUMBER(12)		NOT NULL,
 	product_category_name	VARCHAR(45)		NOT NULL
 );
@@ -46,7 +46,7 @@ ALTER TABLE PRODUCT ADD CONSTRAINT PK_PRODUCT PRIMARY KEY (
 -- 상품번호 시퀀스 생성
 CREATE SEQUENCE PRODUCT_seq NOCYCLE;
 
--- 상품 DB데이터 추가
+-- product 테이블 값 추가
 INSERT INTO PRODUCT
 VALUES (PRODUCT_seq.NEXTVAL,
 '꽃샘바람에 흔들린다면 너는 꽃',
