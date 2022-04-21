@@ -34,7 +34,7 @@
                     <div class="author">글쓴이</div>
                     <div class="date">작성일</div>
                 </div>
-                <c:forEach var="i" begin="${paging.getBeginRow() - 1}" end="${paging.getEndRow() - 1}" step="1">
+                <c:forEach var="i" begin="${paging.getBeginRow() -1 }" end="${paging.getEndRow() - 1}" step="1">
                 	<div>
 	                    <a href="${contextPath}/qna/detailQna.do?qna_no=${qnaList[i].qna_no}">
 	                        <div class="num">${qnaList[i].qna_no}</div>

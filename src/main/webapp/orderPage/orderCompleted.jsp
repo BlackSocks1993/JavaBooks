@@ -80,34 +80,33 @@ request.setAttribute("productsList", productsList);
 		
 		<aside class="order_detail">
 			<div>
-				<table>
 				
 					<c:choose>
 						<c:when test="${!empty productsList}">
 							<c:forEach items="${productsList}" var="pro" >
-								<tr>
-									<td rowspan="3"><img class="pro_img" src="${pro.product_img}"></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>${pro.product_name }</td>
-								</tr>
-								<tr class="products_table_price_td">
-									<td></td>
-									<td><fmt:formatNumber value="${pro.product_price}" pattern="#,### 원" /> | 수량 1개</td>
-								</tr>
+								<div id="flex_container">
+								
+									<div>
+										<img class="pro_img" src="${pro.product_img}">
+									</div>
+									<div class="container_sec_ch">
+										<div>
+											${pro.product_name }
+										</div>
+										<div>
+											<fmt:formatNumber value="${pro.product_price}" pattern="#,### 원" /> | 수량 1개
+										</div>
+									</div>
+									
+								</div>	
 							</c:forEach>
 						</c:when>
 						
 						<c:otherwise>
-							<tr>
 								<td colspan="3">등록된 자료가 없습니다.</td>
-							</tr>
 						</c:otherwise>
 					</c:choose>
 					
-				</table>
 			</div>
 			
 			<div class="payment_confirm_message">
