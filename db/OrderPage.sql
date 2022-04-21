@@ -23,7 +23,6 @@ CREATE TABLE MEMBER (
 	member_name	VARCHAR(10)		NOT NULL,
 	member_add	VARCHAR(255)		NOT NULL,
 	member_phone	VARCHAR(20)		NOT NULL
-	member_id   VARCHAR(45)     NOT NULL
 );
 
 CREATE TABLE QnA (
@@ -74,20 +73,21 @@ CREATE TABLE ORDER_PRODUCT (
 	order_product_quantity	NUMBER(5)		NOT NULL,
 	order_no	NUMBER(12)		NOT NULL,
 	product_no	NUMBER(12)		NOT NULL,
-    total_price NUMBER(20)      NOT NULL,
-    product_name      VARCHAR(100)   NOT NULL,
-    product_img VARCHAR(255)   NULL
+    	total_price NUMBER(20)      NOT NULL,
+    	product_name      VARCHAR(100)   NOT NULL,
+    	product_img VARCHAR(255)   NULL
+	
 );
 
 CREATE TABLE ORDERS (
 	order_no	NUMBER(12)		NOT NULL,
 	order_date	DATE		    NOT NULL,
-    order_addr  VARCHAR(255)    NOT NULL,
-    order_memo  VARCHAR(500)    NULL,
+    	order_addr  VARCHAR(255)    NOT NULL,
+    	order_memo  VARCHAR(500)    NULL,
 	member_no	NUMBER(12)		NOT NULL,
-    order_name  VARCHAR(10)		NOT NULL,
-    order_phone  VARCHAR(20)	NOT NULL,
-    order_final_price  NUMBER(20)	NOT NULL
+    	order_name  VARCHAR(10)		NOT NULL,
+    	order_phone  VARCHAR(20)	NOT NULL,
+    	order_final_price  NUMBER(20)	NOT NULL
 );
 
 
