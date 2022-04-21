@@ -6,13 +6,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <header>
     <h1>
-        <a href="#">
+        <a href="/books/main/main.jsp">
             <img src="../img/logo.jpg" alt="Logo">
         </a>
     </h1>
     <div class="header_bnt">
         <div class="first_bnt">
-            <a href="../QnA/mainQnA.jsp">Q&A</a>
+            <a href="/books/qna/mainQnA.jsp">Q&A</a>
         </div>
         <div class="login">
             <a href="#">로그인</a>
