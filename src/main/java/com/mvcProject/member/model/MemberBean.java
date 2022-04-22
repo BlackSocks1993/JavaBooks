@@ -2,31 +2,32 @@ package com.mvcProject.member.model;
 
 public class MemberBean {
 
-    private String name;        // 이름
-    private String email;			//이메일
-    private String password;     // 비밀번호
-    private String address;        // 주소
-    private String betterAdr;        // 상세주소
-    private String phone;        // 전화
+	private String member_no;        // 회원번호
+	private String member_email;			//이메일
+	private String member_pw;     // 비밀번호
+    private String member_name;        // 이름
+    private String member_add;        // 주소
+    private String member_phone;        // 전화
 
 
     
-    public String getPassword() {return password;}
-    public void setPassword(String password) {this.password = password;}
+    public String getNo() {return member_no;}
+    public void setNo(String member_no) {this.member_no = member_no;}
+
     
-    public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
+    public String getPassword() {return member_pw;}
+    public void setPassword(String member_pw) {this.member_pw = member_pw;}
+    
+    public String getName() {return member_name;}
+    public void setName(String member_name) {this.member_name = member_name;}
  
-    public String getEmail() {return email;}
-    public void setEmail(String email) {this.email = email;}
+    public String getEmail() {return member_email;}
+    public void setEmail(String member_email) {this.member_email = member_email;}
     
-    public String getPhone() {return phone;}
-    public void setPhone(String phone) {this.phone = phone;}
+    public String getPhone() {return member_phone;}
+    public void setPhone(String member_phone) {this.member_phone =member_phone;}
     
-    public String getAddress() {return address;}
-    public void setAddress(String address) {this.address = address;}
-    public String getBetterAdr() {return betterAdr;}
-    public void setBetterAdr(String betterAdr) {this.betterAdr = betterAdr;}
-
+    public String getAddress() {return member_add;}
+    public void setAddress(String member_add) {this.member_add = member_add;}
 
 }

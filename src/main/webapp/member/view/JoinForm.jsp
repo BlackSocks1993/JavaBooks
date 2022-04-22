@@ -75,6 +75,7 @@
 
 
 <body>
+<%@include file="../common/header.jsp"%>
 
     <div id="wrap">
         <br><br>
@@ -145,6 +146,6 @@
         </form>
     </div>
 
-
+<%@include file="../common/footer.jsp"%>
 </body>
 </html>

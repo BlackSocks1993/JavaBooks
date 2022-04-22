@@ -4,11 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import javax.naming.NamingException;
  
 import DB.DBConnection;
- 
+
 
 
 public class MemberDAO {
@@ -38,15 +37,16 @@ public class MemberDAO {
 	            
 	            StringBuffer sql = new StringBuffer();
 	            sql.append("insert into MEMBER values");
-	            sql.append("(?, ?, ?, ?, ?,?)");        
+	            sql.append("(member_seq.nextval,?, ?, ?, ?,?)");        
 
 	            pstmt = conn.prepareStatement(sql.toString());
-	            pstmt.setString(1, member.getName());
-	            pstmt.setString(2, member.getEmail());
-	            pstmt.setString(3, member.getPassword());
+	            //회원번호
+
+	            pstmt.setString(1, member.getEmail());
+	            pstmt.setString(2, member.getPassword());
+	            pstmt.setString(3, member.getName());
 	            pstmt.setString(4, member.getAddress());
 	            pstmt.setString(5, member.getPhone());
-	            pstmt.setString(6, member.getBetterAdr());
 	            
 
 	            pstmt.executeUpdate();
@@ -79,7 +79,7 @@ public class MemberDAO {
 	        try {
 	     
 	            StringBuffer query = new StringBuffer();
-	            query.append("SELECT PASSWORD FROM MEMBER WHERE email=?");
+	            query.append("SELECT member_pw FROM MEMBER WHERE member_email=?");
 	 
 	            conn = DBConnection.getConnection();
 	            pstmt = conn.prepareStatement(query.toString());
