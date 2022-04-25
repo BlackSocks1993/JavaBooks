@@ -63,17 +63,20 @@ public class CartController extends HttpServlet {
 
 			try {
 				String str = dao.getUserName();
-				
 				request.setAttribute("userName", str);
+				
+				cartlist = dao.getCartList(3);
 				request.setAttribute("cartList", cartlist);
-				request.setAttribute("name", dao.getUserName());
+				
+			//	 request.setAttribute("name", dao.getUserName());
+			// 	 request.setAttribute("name", dao.getUserName());
 				
 				nextPage = "/cartlist/cartList.jsp";
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
+			System.out.println("3번 회원의 장바구니:" +cartlist.size());
 		} else {
 			System.out.println("잘못된 경로");
 			response.getWriter().println("action check");

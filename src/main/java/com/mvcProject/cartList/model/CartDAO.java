@@ -79,13 +79,15 @@ public class CartDAO {
 	public List<CartDTO> getCartList(int member_no) throws Exception {
 		List<CartDTO> cartList = null;
 
+		// 카트리스트 부를때 세션으로 담아서 getAttribute 사용해서 담고 넘겨주기
+		
 		try {
 			conn = dataFactory.getConnection();
 			String sql = " select p.product_img, p.product_name, p.product_price, c.cart_amount ";
 				sql += " from member m, cart c, product p ";
 				sql += " where  m.member_no = c.member_no ";
 				sql += " and c.product_no = p.product_no ";
-				sql += " and m.member_no = 3 ";
+				sql += " and m.member_no = " + member_no; 
 	
 			    // 로그인한 3번 사용자 회원의 장바구니라고 가정하고 리스트에 담기
 
@@ -104,8 +106,8 @@ public class CartDAO {
 				CartDTO dto = new CartDTO();
 				dto.setProduct_img(rs.getString("product_img")); 
 				dto.setProduct_name(rs.getString("product_name"));
-				dto.setProduct_price(rs.getInt("product_price"));
 				dto.setCart_amount(rs.getInt("cart_amount"));
+				dto.setProduct_price(rs.getInt("product_price"));
 
 				cartList.add(dto);
 			}
