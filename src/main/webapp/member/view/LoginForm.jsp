@@ -59,7 +59,7 @@
         </style>
 </head>
 <body>
-<%@include file="../common/header.jsp"%>
+<%@include file="../../common/header.jsp"%>
 <div id="wrap">
         <br><br>
         <b><font size="6" >로그인</font></b>
@@ -117,6 +117,6 @@
     }
     %>
 </div>    
-<%@include file="../common/footer.jsp"%>
+<%@include file="../../common/footer.jsp"%>
 </body>
 </html>
