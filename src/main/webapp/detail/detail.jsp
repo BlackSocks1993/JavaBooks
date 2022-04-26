@@ -66,7 +66,7 @@
 			<hr>
 			<div class="product_purchase">
 				<a href="" class="item"><input type="button" value="장바구니"></a>
-				<a href="../orderPage/payment.jsp?product_price=<%=product_price%>&product_name=<%=product_name%>&product_img=<%=product_img%>" class="item"><input type="button" value="바로구매"></a>
+				<a href="../orderPage/payment.jsp?product_price=<%=product_price%>&product_name=<%=product_name%>&product_date=<%=product_date%>&product_img=<%=product_img%>&product_author=<%=product_author%>&product_publisher=<%=product_publisher%>&product_detail=<%=product_detail%>" class="item"><input type="button" value="바로구매"></a>
 			</div>
 		</div>
 	</section>

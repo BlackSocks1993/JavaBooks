@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	import="com.mvcProject.orderPage.*" import="java.util.*"
+	import="com.mvcProject.orderPage.*" import="java.util.*" import="java.sql.Date"
     import="com.mvcProject.product.*" 
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -24,11 +24,17 @@
 String[] arr_product_price = request.getParameterValues("product_price");
 String[] arr_product_name = request.getParameterValues("product_name");
 String[] arr_product_img = request.getParameterValues("product_img");
+String[] arr_product_author = request.getParameterValues("product_author");
+String[] arr_product_publisher = request.getParameterValues("product_publisher");
+String[] arr_product_date = request.getParameterValues("product_date");
+String[] arr_product_detail = request.getParameterValues("product_detail");
 
 /* 결제정보div에 넣을 상품 가격 값 가져오기 */
 String product_price = request.getParameter("product_price");
 int total_price = Integer.parseInt(request.getParameter("product_price")) + 2500;
 
+/* 최종결제금액을 위한 변수 sum 초기화 */
+int sum = 0;
 
 /* 배열로 온것들을 리스트로 담는다 */
 List productsList = new ArrayList();
@@ -37,7 +43,13 @@ for(int i=0; i<arr_product_price.length; i++){
 	pDTO.setProduct_price(Integer.parseInt(arr_product_price[i]));
 	pDTO.setProduct_name(arr_product_name[i]);
 	pDTO.setProduct_img(arr_product_img[i]);
+	pDTO.setProduct_author(arr_product_author[i]);
+	pDTO.setProduct_publisher(arr_product_publisher[i]);
+	pDTO.setProduct_date(Date.valueOf(arr_product_date[i]));
+	pDTO.setProduct_detail(arr_product_detail[i]);
 
+	sum += pDTO.getProduct_price();
+	
 	productsList.add(pDTO);
 }
 
@@ -118,10 +130,9 @@ request.setAttribute("productsList", productsList);
 										<td><img class="pro_img" src="${pro.product_img}"></td>
 										<td>${pro.product_name }</td>
 										<td class="products_table_price_td">
-											<fmt:formatNumber value="${pro.product_price}" pattern="#,### 원" /> | 수량 1개
+											<fmt:formatNumber value="${pro.product_price}" pattern="#,### 원" /> | 수량 1 개
 											<input type="hidden" name="product_price" value="${pro.product_price}">
 											<input type="hidden" name="order_product_quantity" value="1">
-											<!-- quantity value값은 임시로 적어둠(장바구니 값 못 받아온 상태임) -->
 											<input type="hidden" name="product_name" value="${pro.product_name}">
 											<input type="hidden" name="product_img" value="${pro.product_img}">
 										</td>
@@ -178,6 +189,12 @@ request.setAttribute("productsList", productsList);
 				<input type="submit" value="결제하기">
 				<!-- 주문한 상품 목록 사이즈 값을 controller에서 for문 돌릴 예정 -->
 				<input type="hidden" name="productsList_size" value="<%= productsList.size() %>">
+				<a href="/books/detail/detail.jsp?product_price=
+					<%=arr_product_price[0]%>&product_name=<%=arr_product_name[0]%>&product_date=<%=arr_product_date[0]%>
+					&product_img=<%=arr_product_img[0]%>&product_author=<%=arr_product_author[0]%>
+					&product_publisher=<%=arr_product_publisher[0]%>&product_detail=<%=arr_product_detail[0]%>">
+					<input type="button" value="취소하기">
+				</a>
 			</div>
 			</div>
 		</aside>
